@@ -2,10 +2,6 @@
 <div>
       <v-container>
          <v-row>
-          <v-col cols="12" md="7">
-            <h1 class="headline mb-2 grey--text">Calendario de entregas</h1>
-            <Calendar/>
-          </v-col>
           <v-col cols="12" md="5">
             
                   <template >
@@ -26,7 +22,6 @@
 </template>
 
 <script>
-import Calendar from '../components/Calendar'
 import { GChart } from "vue-google-charts";
  const gradients = [
     ['#222'],
@@ -69,8 +64,7 @@ export default {
       }
     },
     components: {
-    GChart,
-    Calendar
+    GChart
   },
   }
 </script>

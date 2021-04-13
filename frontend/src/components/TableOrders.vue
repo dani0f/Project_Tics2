@@ -8,7 +8,7 @@
     </v-card-title>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="orders"
     :search="search"
     sort-by="calories"
     class="elevation-1"
@@ -160,7 +160,7 @@
     <template v-slot:no-data>
       <v-btn
         color="primary"
-        @click="initialize"
+        @click="getOrders"
       >
         Reset
       </v-btn>
@@ -178,17 +178,15 @@ class Order {
 export default {
     data(){
       return{
-        order: new Order(),
-        orders: [],
         dialog: false,
         dialogDelete: false,
         search:'',
         headers: [
           {
-            text: 'Dessert (100g serving)',
+            text: 'id',
             align: 'start',
             sortable: false,
-            value: 'description',
+            value: '_id',
           },
           { text: 'Solicitud de orden', value: 'orderRequest' },
           { text: 'Proyecto', value: 'proyecto' },
@@ -197,7 +195,8 @@ export default {
           { text: 'Descripción', value: 'description' },
           { text: 'Actions', value: 'actions', sortable: false },
         ],
-        desserts: [],
+        order: new Order(),
+        orders: [],
         editedIndex: -1,
         editedItem: {
           name: '',
@@ -232,18 +231,13 @@ export default {
     },
 
     created () {
-      this.initialize();
       this.getOrders();
     },
     methods: {
-      getOrders(){
-        fetch('http://localhost:3000/api/orders')
-        .then( res => res.json() )
-        .then( data => {
-        this.orders = data
-        this.desserts =data
-        console.log(this.orders)
-        });
+      async getOrders(){
+        const res = await this.axios.get('http://localhost:3000/api/orders');
+        console.log(res.data)
+        this.orders = res.data
       },
       addOrder(){
         fetch('http://localhost:3000/api/orders', {
@@ -272,32 +266,20 @@ export default {
         this.getOrders();
         })
       },
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-          },
-        ]
-      },
-
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.orders.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.orders.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        this.orders.splice(this.editedIndex, 1)
         this.deleteOrder(this.editedItem._id)
         this.closeDelete()
       },
@@ -320,9 +302,9 @@ export default {
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          Object.assign(this.orders[this.editedIndex], this.editedItem)
         } else {
-          this.desserts.push(this.editedItem)
+          this.orders.push(this.editedItem)
         }
         this.close()
       },
