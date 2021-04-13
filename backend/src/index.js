@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const bp = require('body-parser')
 const app = express();
 
 //settings
@@ -8,6 +9,8 @@ app.set('port', process.env.PORT || 3000);
 mongoose.connect('mongodb://localhost/sigdo-database')
     .then(db => console.log('DB is connected'))
     .catch(err => console.error(err));
+app.use(bp.json())
+app.use(bp.urlencoded({ extended: true }))
 //middlewares
 
 //CORS config
