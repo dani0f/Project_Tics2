@@ -30,6 +30,8 @@ app.use(function (req, res, next) {
 //routes
 app.use('/api/orders',require('./routes/orders'));
 
+app.use('/api/Users',require('./routes/Users'));
+
 //Static files
 
 app.use(express.static(__dirname + '/public'));
