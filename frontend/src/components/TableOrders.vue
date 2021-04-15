@@ -2,7 +2,7 @@
 <template>
 <div>
     <v-card-title>
-      Nutrition
+      
       <v-spacer></v-spacer>
 
     </v-card-title>
@@ -17,7 +17,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>Ordenes</v-toolbar-title>
+        <v-toolbar-title>Ordenes de compra</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-text-field
         v-model="search"
@@ -36,17 +36,6 @@
           v-model="dialog"
           max-width="500px"
         >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="primary"
-              dark
-              class="mb-2"
-              v-bind="attrs"
-              v-on="on"
-            >
-              New Item
-            </v-btn>
-          </template>
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
@@ -61,8 +50,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.description"
-                      label="Description"
+                      v-model="editedItem.oc"
+                      label="OC"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -71,8 +60,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.calories"
-                      label="Calories"
+                      v-model="editedItem.promisedate"
+                      label="Promise Date"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -81,8 +70,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
+                      v-model="editedItem.forecast"
+                      label="Forecast"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -91,8 +80,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
+                      v-model="editedItem.estado"
+                      label="Estatus"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -101,8 +90,28 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
+                      v-model="editedItem.tipodespacho"
+                      label="Shipment Type"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.guia"
+                      label="Guide"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.comentario"
+                      label="Commentary"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -111,20 +120,20 @@
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn
-                color="blue darken-1"
+              <v-icon
+                color="red darken-4"
                 text
                 @click="close"
               >
-                Cancel
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
+               far fa-window-close
+              </v-icon>
+              <v-icon
+                color="green darken-4"
                 text
                 @click="save"
               >
-                Save
-              </v-btn>
+                far fa-check-square
+              </v-icon>
             </v-card-actions>
             </form>
           </v-card>
@@ -134,27 +143,29 @@
             <v-card-title class="headline">Are you sure you want to delete this item?</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="red darken-4" text @click="closeDelete">Cancel</v-btn>
+              <v-btn color="green darken-4" text @click="deleteItemConfirm">OK</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:item.actions="{item}">
       <v-icon
         small
+        color="green darken-1"
         class="mr-2"
         @click="editItem(item)"
       >
-        mdi-pencil
+      fas fa-edit
       </v-icon>
       <v-icon
         small
+        color="red darken-4"
         @click="deleteItem(item)"
       >
-        mdi-delete
+      fas fa-trash-alt
       </v-icon>
     </template>
     <template v-slot:no-data>
@@ -182,35 +193,73 @@ export default {
         dialogDelete: false,
         search:'',
         headers: [
+          { text: 'Actions', value: 'actions', align: 'start', sortable: false },
           {
-            text: 'id',
-            align: 'start',
+            text: 'OC',
             sortable: false,
             value: '_id',
           },
-          { text: 'Solicitud de orden', value: 'orderRequest' },
-          { text: 'Proyecto', value: 'proyecto' },
-          { text: 'Datos del documento', value: 'documentData' },
-          { text: 'Fecha de entrega', value: 'deliveryDate' },
-          { text: 'Descripción', value: 'description' },
-          { text: 'Actions', value: 'actions', sortable: false },
+          { text: 'Position', filterable: false, value: 'position' },
+          { text: 'Solped', filterable: false, value: 'solped' },
+          { text: 'Proyect', filterable: false,value: 'proyecto' },
+          { text: 'Document Date', value: 'documentdate' },
+          { text: 'Supplier ', filterable: false,value: 'proveedor' },
+          { text: 'Description', filterable: false,value: 'description' },
+          { text: 'Due Date', filterable: false,value: 'deliveryDate' },
+          { text: 'Promise Date', filterable: false,value: 'promisedate' } ,
+          { text: 'Forecast', filterable: false,value: 'forecast' },
+          { text: 'Status', filterable: false,value: 'estado' },
+          { text: 'Purchaser', filterable: false,value: 'comprador' },
+          { text: 'Requested Amount', filterable: false,value: 'cantidadsolicitada' },
+          { text: 'Delivered Amount', filterable: false,value: 'cantidadentregada' },
+          { text: 'Missing Amount', filterable: false,value: 'cantidadfaltante' },
+          { text: 'Shipment Type', filterable: false,value: 'tipodespacho' },
+          { text: 'Guide', filterable: false,value: 'guia' },
+          { text: 'Commentary', filterable: false,value: 'comentario' },
         ],
         order: new Order(),
         orders: [],
         editedIndex: -1,
         editedItem: {
-          name: '',
-          calories: 0,
-          fat: 0,
-          carbs: 0,
-          protein: 0,
+          oc: 0,
+         position: 0,
+          solped: '',
+          proyecto: 0,
+          documentdate: '',
+          proveedor:'',
+          description: '',
+          deliverydate: '',
+          promisedate: '',
+          forecast: '',
+          estado: '',
+          comprador: '',
+          cantidadsolicitada: 0,
+          cantidadentregada: 0,
+          cantidadfaltante: 0,     
+          tipodespacho: '',
+          guia: 0,
+          comentario:'',
+        
         },
         defaultItem: {
-          name: '',
-          calories: 0,
-          fat: 0,
-          carbs: 0,
-          protein: 0,
+          oc: 0,
+          position: 0,
+          solped: '',
+          proyecto: 0,
+          documentdate: '',
+          proveedor:'',
+          description: '',
+          deliverydate: '',
+          promisedate: '',
+          forecast: '',
+          estado: '',
+          comprador: '',
+          cantidadsolicitada: 0,
+          cantidadentregada: 0,
+          cantidadfaltante: 0,     
+          tipodespacho: '',
+          guia: 0,
+          comentario:'',
         },
       }
     },
@@ -266,6 +315,21 @@ export default {
         this.getOrders();
         })
       },
+      editOrder(id){
+        fetch('http://localhost:3000/api/orders/' + id,{
+          method: 'PUT',
+          body: JSON.stringify(this.editItem),
+          headers: {
+            'Accept':'aplication/json',
+            'Content-type':'application/json' 
+          }
+        })
+        .then(res => res.json)
+        .then(() => {
+          this.getOrders();
+        })
+      }
+      ,
       editItem (item) {
         this.editedIndex = this.orders.indexOf(item)
         this.editedItem = Object.assign({}, item)
@@ -306,6 +370,7 @@ export default {
         } else {
           this.orders.push(this.editedItem)
         }
+        this.editOrder(this.editItem._id)
         this.close()
       },
     },
