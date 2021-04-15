@@ -103,7 +103,6 @@ export default {
           this.generateData({ header, results })
           this.loading = false
           resolve()
-          console.log(results)
         }
         reader.readAsArrayBuffer(rawFile)
       })
