@@ -7,7 +7,7 @@
 
     </v-card-title>
   <v-data-table
-    :headers="headers"
+      :headers="headers"
     :items="orders"
     :search="search"
     sort-by="calories"
@@ -19,13 +19,13 @@
       >
         <v-toolbar-title>Ordenes de compra</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
+              <v-text-field
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="OC"
+                single-line
+                hide-details
+              ></v-text-field>              
         <v-divider
           class="mx-4"
           inset
@@ -192,21 +192,21 @@ export default {
         dialog: false,
         dialogDelete: false,
         search:'',
+              
         headers: [
           { text: 'Actions', value: 'actions', align: 'start', sortable: false },
           {
             text: 'OC',
-            sortable: false,
             value: '_id',
           },
-          { text: 'Position', filterable: false, value: 'position' },
-          { text: 'Solped', filterable: false, value: 'solped' },
-          { text: 'Proyect', filterable: false,value: 'proyecto' },
+          { text: 'Position', value: 'position' },
+          { text: 'Solped', value: 'solped' },
+          { text: 'Proyect',value: 'proyecto' },
           { text: 'Document Date', value: 'documentdate' },
-          { text: 'Supplier ', filterable: false,value: 'proveedor' },
-          { text: 'Description', filterable: false,value: 'description' },
-          { text: 'Due Date', filterable: false,value: 'deliveryDate' },
-          { text: 'Promise Date', filterable: false,value: 'promisedate' } ,
+          { text: 'Supplier ', value: 'proveedor' },
+          { text: 'Description',value: 'description' },
+          { text: 'Due Date', value: 'deliveryDate' },
+          { text: 'Promise Date',value: 'promisedate' } ,
           { text: 'Forecast', filterable: false,value: 'forecast' },
           { text: 'Status', filterable: false,value: 'estado' },
           { text: 'Purchaser', filterable: false,value: 'comprador' },
@@ -363,7 +363,6 @@ export default {
           this.editedIndex = -1
         })
       },
-
       save () {
         if (this.editedIndex > -1) {
           Object.assign(this.orders[this.editedIndex], this.editedItem)
@@ -373,7 +372,10 @@ export default {
         this.editOrder(this.editItem._id)
         this.close()
       },
-    },
+            
+
+    }
+  
   }
 
 </script>

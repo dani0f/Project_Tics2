@@ -17,7 +17,7 @@
                         <v-icon>fas fa-chart-line</v-icon>
                     </v-list-item-action>
                 </v-list-item>
-                <v-list-item class="mb-8" router to="/asd">
+                <v-list-item class="mb-8" router to="/users">
                     <v-list-item-action>
                         <v-icon>fas fa-user</v-icon>
                     </v-list-item-action>

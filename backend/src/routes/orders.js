@@ -8,12 +8,12 @@ router.post('/import',async (req,res) =>{
     console.log("saludos desde routerpostimport")
     console.log("primer dato de ejemplo",req.body.results[0])
     console.log("tamaño",req.body.results.length)
-    var order = {
-        oc: 10,
-        position: 10,
-        solped: 12,
+    var orderDefault = {
+        oc: req.body.results[0]['Documento compras'],
+        position: req.body.results[0]['Posición'],
+        solped: req.body.results[0]['Solicitud de pedido'],
         proyecto: 123,
-        documentdate: "2020-10-19",
+        documentdate: req.body.results[0]['Organización compras'],
         proveedor: "provedor",
         description: "desc",
         deliverydate: "2020-10-10",
@@ -23,12 +23,17 @@ router.post('/import',async (req,res) =>{
         comprador: "String",
         cantidadsolicitada: 21,
         cantidadentregada: 21,
-        cantidadfaltante: 21,
-        tipodespacho: "sd",
+        cantidadfaltante: req.body.results[0]['Por entregar (cantidad)'],
+        tipodespacho: "nueva",
         guia: 12,
         comentario: "asdas"
     }
-    console.log(order)
+    console.log(orderDefault)
+    const order = new orderSchema(orderDefault);
+    await order.save()
+    res.json({
+        status:'Orders Saved'
+    });
 });
 
 router.get('/', async (req,res) => {
