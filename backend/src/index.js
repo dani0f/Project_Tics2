@@ -9,8 +9,8 @@ app.set('port', process.env.PORT || 3000);
 mongoose.connect('mongodb://localhost/sigdo-database')
     .then(db => console.log('DB is connected'))
     .catch(err => console.error(err));
-app.use(bp.json())
-app.use(bp.urlencoded({ extended: true }))
+app.use(bp.json({limit: '50mb'}));
+app.use(bp.urlencoded({limit: '50mb', extended: true}));
 //middlewares
 
 //CORS config
