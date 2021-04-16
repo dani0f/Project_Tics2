@@ -8,25 +8,39 @@ router.post('/import',async (req,res) =>{
     console.log("saludos desde routerpostimport")
     console.log("primer dato de ejemplo",req.body.results[0])
     console.log("tamaño",req.body.results.length)
+    var proyecto ="" 
+    var comprador =""
+    var numNecesidad=String(req.body.results[4]['Número de necesidad'])
+    var cantidadsolicitada=String(req.body.results[0]['Cantidad de pedido'])
+    var cantidadfaltante= String(req.body.results[0]['Por entregar (cantidad)'])
+    var cantidadentregada=0
+    if(numNecesidad !== "undefined"){
+        proyecto=numNecesidad.slice(0,3)
+        comprador=numNecesidad.slice(-3)
+    }
+    if( cantidadsolicitada != "undefined" && cantidadentregada!="undefined"){
+        cantidadentregada=parseInt(cantidadsolicitada)-parseInt(cantidadfaltante)
+    }
+    console.log(String(req.body.results[0]['Fecha documento']))
     var orderDefault = {
         oc: req.body.results[0]['Documento compras'],
         position: req.body.results[0]['Posición'],
         solped: req.body.results[0]['Solicitud de pedido'],
-        proyecto: 123,
-        documentdate: req.body.results[0]['Organización compras'],
-        proveedor: "provedor",
-        description: "desc",
-        deliverydate: "2020-10-10",
-        promisedate: "2021-32-21",
-        forecast: "fore",
-        estado: "String",
-        comprador: "String",
-        cantidadsolicitada: 21,
-        cantidadentregada: 21,
+        proyecto: proyecto,//primeros 3 números
+        documentdate: req.body.results[0]['Fecha documento'],
+        proveedor: req.body.results[0]['Proveedor/Centro suministrador'],
+        description: req.body.results[0]['Texto Breve'],
+        deliverydate: req.body.results[0]['Fecha de entrega'],
+        promisedate: req.body.results[0]['Fecha de entrega'],
+        forecast: "",//manual
+        estado: "",//manual
+        comprador: comprador,//últimos 3 números
+        cantidadsolicitada: req.body.results[0]['Cantidad de pedido'],
+        cantidadentregada:  cantidadentregada,
         cantidadfaltante: req.body.results[0]['Por entregar (cantidad)'],
-        tipodespacho: "nueva",
-        guia: 12,
-        comentario: "asdas"
+        tipodespacho: "",//manual
+        guia: 0,//manual
+        comentario: ""//manual
     }
     console.log(orderDefault)
     const order = new orderSchema(orderDefault);
