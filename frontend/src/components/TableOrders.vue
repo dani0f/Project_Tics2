@@ -6,26 +6,28 @@
       <v-spacer></v-spacer>
 
     </v-card-title>
-  <v-data-table
+
+    <v-data-table
     :headers="headers"
     :items="orders"
     :search="search"
     sort-by="calories"
     class="elevation-1"
   >
+    
     <template v-slot:top>
       <v-toolbar
         flat
       >
         <v-toolbar-title>Ordenes de compra</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
+              <v-text-field
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="OC"
+                single-line
+                hide-details
+              ></v-text-field>              
         <v-divider
           class="mx-4"
           inset
@@ -51,7 +53,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.oc"
-                      label="OC"
+                       label="OC"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -151,6 +153,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
+    
     <template v-slot:item.actions="{item}">
       <v-icon
         small
@@ -167,6 +170,15 @@
       >
       fas fa-trash-alt
       </v-icon>
+    </template>
+    <template v-slot:item.quedandias="{ item }">
+      <v-chip
+        small       
+        :color="getcolor(item.quedandias)"
+
+      >
+        {{ item.quedandias }}
+      </v-chip>
     </template>
     <template v-slot:no-data>
       <v-btn
@@ -192,27 +204,28 @@ export default {
         dialog: false,
         dialogDelete: false,
         search:'',
+              
         headers: [
           { text: 'Actions', value: 'actions', align: 'start', sortable: false },
           {
             text: 'OC',
-            sortable: false,
-            value: '_id',
+            value: 'oc',
           },
-          { text: 'Position', filterable: false, value: 'position' },
-          { text: 'Solped', filterable: false, value: 'solped' },
-          { text: 'Proyect', filterable: false,value: 'proyecto' },
+          { text: 'Position', value: 'position' },
+          { text: 'Solped', value: 'solped' },
+          { text: 'Project',value: 'proyecto' },
           { text: 'Document Date', value: 'documentdate' },
-          { text: 'Supplier ', filterable: false,value: 'proveedor' },
-          { text: 'Description', filterable: false,value: 'description' },
-          { text: 'Due Date', filterable: false,value: 'deliveryDate' },
-          { text: 'Promise Date', filterable: false,value: 'promisedate' } ,
+          { text: 'Supplier ', value: 'proveedor' },
+          { text: 'Description',value: 'description' },
+          { text: 'Due Date', value: 'deliveryDate' },
+          { text: 'Promise Date',value: 'promisedate' } ,
           { text: 'Forecast', filterable: false,value: 'forecast' },
           { text: 'Status', filterable: false,value: 'estado' },
           { text: 'Purchaser', filterable: false,value: 'comprador' },
           { text: 'Requested Amount', filterable: false,value: 'cantidadsolicitada' },
           { text: 'Delivered Amount', filterable: false,value: 'cantidadentregada' },
           { text: 'Missing Amount', filterable: false,value: 'cantidadfaltante' },
+          { text: 'Alert', value: 'quedandias'},
           { text: 'Shipment Type', filterable: false,value: 'tipodespacho' },
           { text: 'Guide', filterable: false,value: 'guia' },
           { text: 'Commentary', filterable: false,value: 'comentario' },
@@ -363,7 +376,14 @@ export default {
           this.editedIndex = -1
         })
       },
+      getcolor (quedandias){
+        if (quedandias >= 0) return 'green accent-4'
+        else if (quedandias < 0 & quedandias >= -7) return 'yellow accent-4'
+        else if (quedandias < -7 & quedandias >= -15) return'orange darken-11'
+        else if (quedandias < -15 & quedandias >= -30) return 'red lighten-1'
+        else return 'red accent-4'
 
+      },
       save () {
         if (this.editedIndex > -1) {
           Object.assign(this.orders[this.editedIndex], this.editedItem)
@@ -373,7 +393,10 @@ export default {
         this.editOrder(this.editItem._id)
         this.close()
       },
-    },
+            
+
+    }
+  
   }
 
 </script>
