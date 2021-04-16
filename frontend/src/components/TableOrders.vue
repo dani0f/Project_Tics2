@@ -6,13 +6,15 @@
       <v-spacer></v-spacer>
 
     </v-card-title>
-  <v-data-table
-      :headers="headers"
+
+    <v-data-table
+    :headers="headers"
     :items="orders"
     :search="search"
     sort-by="calories"
     class="elevation-1"
   >
+    
     <template v-slot:top>
       <v-toolbar
         flat
@@ -51,7 +53,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.oc"
-                      label="OC"
+                       label="OC"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -151,6 +153,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
+    
     <template v-slot:item.actions="{item}">
       <v-icon
         small
@@ -167,6 +170,15 @@
       >
       fas fa-trash-alt
       </v-icon>
+    </template>
+    <template v-slot:item.quedandias="{ item }">
+      <v-chip
+        small       
+        :color="getcolor(item.quedandias)"
+
+      >
+        {{ item.quedandias }}
+      </v-chip>
     </template>
     <template v-slot:no-data>
       <v-btn
@@ -197,11 +209,11 @@ export default {
           { text: 'Actions', value: 'actions', align: 'start', sortable: false },
           {
             text: 'OC',
-            value: '_id',
+            value: 'oc',
           },
           { text: 'Position', value: 'position' },
           { text: 'Solped', value: 'solped' },
-          { text: 'Proyect',value: 'proyecto' },
+          { text: 'Project',value: 'proyecto' },
           { text: 'Document Date', value: 'documentdate' },
           { text: 'Supplier ', value: 'proveedor' },
           { text: 'Description',value: 'description' },
@@ -213,6 +225,7 @@ export default {
           { text: 'Requested Amount', filterable: false,value: 'cantidadsolicitada' },
           { text: 'Delivered Amount', filterable: false,value: 'cantidadentregada' },
           { text: 'Missing Amount', filterable: false,value: 'cantidadfaltante' },
+          { text: 'Alert', value: 'quedandias'},
           { text: 'Shipment Type', filterable: false,value: 'tipodespacho' },
           { text: 'Guide', filterable: false,value: 'guia' },
           { text: 'Commentary', filterable: false,value: 'comentario' },
@@ -362,6 +375,14 @@ export default {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
         })
+      },
+      getcolor (quedandias){
+        if (quedandias >= 0) return 'green accent-4'
+        else if (quedandias < 0 & quedandias >= -7) return 'yellow accent-4'
+        else if (quedandias < -7 & quedandias >= -15) return'orange darken-11'
+        else if (quedandias < -15 & quedandias >= -30) return 'red lighten-1'
+        else return 'red accent-4'
+
       },
       save () {
         if (this.editedIndex > -1) {
