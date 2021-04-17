@@ -171,13 +171,12 @@
       fas fa-trash-alt
       </v-icon>
     </template>
-    <template v-slot:item.quedandias="{ item }">
+    <template v-slot:item.deliverydate="{ item }">
       <v-chip
         small       
-        :color="getcolor(item.quedandias)"
-
+        :color="getcolor(item.deliverydate)"
       >
-        {{ item.quedandias }}
+        {{ daysAlert(item.deliverydate) }}
       </v-chip>
     </template>
     <template v-slot:no-data>
@@ -217,7 +216,7 @@ export default {
           { text: 'Document Date', value: 'documentdate' },
           { text: 'Supplier ', value: 'proveedor' },
           { text: 'Description',value: 'description' },
-          { text: 'Due Date', value: 'deliveryDate' },
+          { text: 'Due Date', value: 'deliverydate' },
           { text: 'Promise Date',value: 'promisedate' } ,
           { text: 'Forecast', filterable: false,value: 'forecast' },
           { text: 'Status', filterable: false,value: 'estado' },
@@ -225,7 +224,7 @@ export default {
           { text: 'Requested Amount', filterable: false,value: 'cantidadsolicitada' },
           { text: 'Delivered Amount', filterable: false,value: 'cantidadentregada' },
           { text: 'Missing Amount', filterable: false,value: 'cantidadfaltante' },
-          { text: 'Alert', value: 'quedandias'},
+          { text: 'Alert', value: 'deliverydate'},
           { text: 'Shipment Type', filterable: false,value: 'tipodespacho' },
           { text: 'Guide', filterable: false,value: 'guia' },
           { text: 'Commentary', filterable: false,value: 'comentario' },
@@ -296,6 +295,13 @@ export default {
       this.getOrders();
     },
     methods: {
+      daysAlert(deliverydate){
+        var timeStart = new Date();
+        var timeEnd = new Date(deliverydate);
+        var diff = timeEnd.getTime() - timeStart.getTime();
+        var dias_restantes=Math.round(diff / (1000 * 60 * 60 * 24));
+        return(dias_restantes-1)
+      },
       async getOrders(){
         const res = await this.axios.get('http://localhost:3000/api/orders');
         console.log(res.data)
@@ -328,10 +334,10 @@ export default {
         this.getOrders();
         })
       },
-      editOrder(id){
-        fetch('http://localhost:3000/api/orders/' + id,{
+      editOrder(){
+        fetch('http://localhost:3000/api/orders/' + this.editedItem._id,{
           method: 'PUT',
-          body: JSON.stringify(this.editItem),
+          body: JSON.stringify(this.editedItem),
           headers: {
             'Accept':'aplication/json',
             'Content-type':'application/json' 
@@ -376,7 +382,8 @@ export default {
           this.editedIndex = -1
         })
       },
-      getcolor (quedandias){
+      getcolor (deliverydate){
+        var quedandias = this.daysAlert(deliverydate)
         if (quedandias >= 0) return 'green accent-4'
         else if (quedandias < 0 & quedandias >= -7) return 'yellow accent-4'
         else if (quedandias < -7 & quedandias >= -15) return'orange darken-11'
@@ -390,7 +397,7 @@ export default {
         } else {
           this.orders.push(this.editedItem)
         }
-        this.editOrder(this.editItem._id)
+        this.editOrder()
         this.close()
       },
             
