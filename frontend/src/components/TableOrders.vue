@@ -171,7 +171,7 @@
       fas fa-trash-alt
       </v-icon>
     </template>
-    <template v-slot:item.deliverydate="{ item }">
+    <template v-slot:item.alert="{ item }">
       <v-chip
         small       
         :color="getcolor(item.deliverydate)"
@@ -224,7 +224,7 @@ export default {
           { text: 'Requested Amount', filterable: false,value: 'cantidadsolicitada' },
           { text: 'Delivered Amount', filterable: false,value: 'cantidadentregada' },
           { text: 'Missing Amount', filterable: false,value: 'cantidadfaltante' },
-          { text: 'Alert', value: 'deliverydate'},
+          { text: 'Alert', value: 'alert'},
           { text: 'Shipment Type', filterable: false,value: 'tipodespacho' },
           { text: 'Guide', filterable: false,value: 'guia' },
           { text: 'Commentary', value: 'comentario' },
@@ -251,6 +251,7 @@ export default {
           tipodespacho: '',
           guia: 0,
           comentario:'',
+          alert: ''
         
         },
         defaultItem: {
@@ -272,6 +273,7 @@ export default {
           tipodespacho: '',
           guia: 0,
           comentario:'',
+          alert:''
         },
       }
     },
