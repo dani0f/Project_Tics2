@@ -38,7 +38,7 @@ router.post('/import',async (req,res) =>{
             proyecto: proyecto,//primeros 3 números
             documentdate: documentdate,
             proveedor: element['Proveedor/Centro suministrador'],
-            description: element['Texto Breve'],
+            description: element['Texto breve'],
             deliverydate: deliverydate,
             promisedate: deliverydate,
             comprador: comprador,//últimos 3 números
@@ -73,6 +73,7 @@ router.put('/:id', async (req,res) =>{
 });
 router.delete('/:id',async (req, res) =>{
     await orderSchema.findByIdAndRemove(req.params.id);
+    //await orderSchema.deleteMany();
     res.json({
         status: 'Order Removed'
     })
