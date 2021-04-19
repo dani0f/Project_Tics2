@@ -11,7 +11,7 @@
     :headers="headers"
     :items="orders"
     :search="search"
-    sort-by="calories"
+    sort-by="sortBy.toLowerCase()"
     class="elevation-1"
   >
     
@@ -83,7 +83,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.estado"
-                      label="Estatus"
+                      label="Status"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -189,7 +189,7 @@
       </v-btn>
     </template>
   </v-data-table>
-</div>
+  </div>
 </template>
 <script>
 class Order {
@@ -219,16 +219,16 @@ export default {
           { text: 'Description',value: 'description' },
           { text: 'Due Date', value: 'deliveryDate' },
           { text: 'Promise Date',value: 'promisedate' } ,
-          { text: 'Forecast', filterable: false,value: 'forecast' },
-          { text: 'Status', filterable: false,value: 'estado' },
-          { text: 'Purchaser', filterable: false,value: 'comprador' },
-          { text: 'Requested Amount', filterable: false,value: 'cantidadsolicitada' },
-          { text: 'Delivered Amount', filterable: false,value: 'cantidadentregada' },
-          { text: 'Missing Amount', filterable: false,value: 'cantidadfaltante' },
+          { text: 'Forecast', value: 'forecast' },
+          { text: 'Status', value: 'estado' },
+          { text: 'Purchaser',value: 'comprador' },
+          { text: 'Requested Amount', value: 'cantidadsolicitada' },
+          { text: 'Delivered Amount', value: 'cantidadentregada' },
+          { text: 'Missing Amount', value: 'cantidadfaltante' },
           { text: 'Alert', value: 'quedandias'},
-          { text: 'Shipment Type', filterable: false,value: 'tipodespacho' },
+          { text: 'Shipment Type', value: 'tipodespacho' },
           { text: 'Guide', filterable: false,value: 'guia' },
-          { text: 'Commentary', filterable: false,value: 'comentario' },
+          { text: 'Commentary', value: 'comentario' },
         ],
         order: new Order(),
         orders: [],
