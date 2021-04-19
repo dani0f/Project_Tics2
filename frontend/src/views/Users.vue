@@ -1,15 +1,11 @@
 <template>
 
     <div>
-        <nav class="navbar navbar-light bg-light">
-            <a href="/" class="navbar-brand">MEVN Stack</a>
-        </nav>
-
-
       <div class="container">
           <div class="row pt-5">
                <div class="col-md-5">
                  <div class="card">
+                    <v-card-title><h3>Add user</h3></v-card-title>
                      <div class="card-body">
                          <form @submit.prevent="addTask">
                               <div class="form-group">
@@ -37,13 +33,13 @@
                                  class="form-control">
                              </div>
                             <button class="btn btn-primary
-                            btn-block deep-purple">Crear usuario</button>
+                            btn-block deep-purple mt-4">save</button>
                          </form>
                       </div>
                  </div>
                 </div>
 
-                <div classs="col-md-7">
+                <div class="col-md-7">
                     <table class='table table-bordered'>
                         <thead>
                             <tr>
@@ -90,7 +86,7 @@
         data() {
             return{
                 task: new Task(),
-                tasks: []
+                tasks: [],
             }
         },
         created() {
