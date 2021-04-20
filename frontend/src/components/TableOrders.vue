@@ -81,15 +81,12 @@
                     sm="6"
                     md="4"
                   >
-                    
                     <v-select 
                     label="Status"
                     v-model="selected"
                     :items="tipo"                   
-                    >
-                      
+                    > 
                     </v-select>
-                    
                   </v-col>
                   <v-col
                     cols="12"
