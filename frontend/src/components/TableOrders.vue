@@ -81,20 +81,27 @@
                     sm="6"
                     md="4"
                   >
-                    <v-text-field
-                      v-model="editedItem.estado"
-                      label="Status"
-                    ></v-text-field>
+                    
+                    <v-select 
+                    label="Status"
+                    v-model="selected"
+                    :items="tipo"                   
+                    >
+                      
+                    </v-select>
+                    
                   </v-col>
                   <v-col
                     cols="12"
                     sm="6"
                     md="4"
                   >
-                    <v-text-field
-                      v-model="editedItem.tipodespacho"
+                    <v-select
                       label="Shipment Type"
-                    ></v-text-field>
+                      v-model="selected"
+                      :items="despachito"
+
+                    ></v-select>
                   </v-col>
                   <v-col
                     cols="12"
@@ -203,6 +210,8 @@ export default {
         dialog: false,
         dialogDelete: false,
         search:'',
+        tipo:['Despachado', 'Parcial'],
+        despachito:['Samex', 'Otro'],
               
         headers: [
           { text: 'Actions', value: 'actions', align: 'start', sortable: false },
@@ -234,7 +243,7 @@ export default {
         editedIndex: -1,
         editedItem: {
           oc: 0,
-         position: 0,
+          position: 0,
           solped: '',
           proyecto: 0,
           documentdate: '',
@@ -280,7 +289,7 @@ export default {
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? 'New Item' : 'Edit OC'
       },
     },
 
