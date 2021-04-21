@@ -8,6 +8,12 @@ router.get('/', async (req,res) => {
    const users = await UserSchema.find();
    res.json(users);
 });
+
+router.get('/:id', async (req,res) => {
+    const users = await UserSchema.findById(req.params.id);
+    res.json(users);
+});
+
 router.post('/',async (req,res) =>{
     const users = new UserSchema(req.body);
     await users.save()
