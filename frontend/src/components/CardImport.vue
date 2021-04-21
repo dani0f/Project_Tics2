@@ -2,7 +2,7 @@
   <div>
     
     <v-card class="mx-auto pb-2"> 
-      <template v-if="loading">    
+      <template v-if="loading ==1">    
       <v-progress-linear
         indeterminate
         color="green"
@@ -38,8 +38,12 @@
     </v-row>
     </v-card>
     <template v-if="loading">
-    <v-card-subtitle class="text-left red p-3 text-white">Loading, please wait a moment...</v-card-subtitle>
+    <v-card-subtitle class="text-left red p-2 text-white">Loading, please wait a moment...</v-card-subtitle>
     </template>
+    <template v-else-if="completeLoading">
+    <v-card-subtitle class="text-left red p-2 text-white">Ready</v-card-subtitle>
+    </template>
+
   </div>
 </template>
 
@@ -53,6 +57,7 @@ export default {
   data() {
     return {
       loading: false,
+      completeLoading: false,
       excelData: {
         header: null,
         results: null
@@ -61,7 +66,7 @@ export default {
     }
   },
   methods: {
-    saveInDB(){
+    async saveInDB(){
       fetch('http://localhost:3000/api/orders/import', {
           method: 'POST',
           body: JSON.stringify(this.excelData),
@@ -70,9 +75,9 @@ export default {
             'Content-type':'application/json'
           }
         }).then(res => res.json())
-        .then(() => {
-        console.log("guardado")
-        })
+        await this.axios.get('http://localhost:3000/api/orders');
+        this.loading = false
+        this.completeLoading = true
     },
     generateData({ header, results }) {
       this.excelData.header = header
@@ -135,7 +140,7 @@ export default {
           const header = this.getHeaderRow(worksheet)
           const results = XLSX.utils.sheet_to_json(worksheet)
           this.generateData({ header, results })
-          this.loading = false
+          
           resolve()
         }
         reader.readAsArrayBuffer(rawFile)
