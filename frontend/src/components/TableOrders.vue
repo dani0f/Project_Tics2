@@ -81,10 +81,11 @@
                     sm="6"
                     md="4"
                   >
-                    <v-select 
+                    <v-select
                     label="Status"
-                    v-model="selected"
-                    :items="tipo"                   
+                    item-value="estado"
+                    v-model="editedItem.estado" 
+                    :items="statusOptions"   
                     > 
                     </v-select>
                   </v-col>
@@ -94,10 +95,10 @@
                     md="4"
                   >
                     <v-select
+                      item-value="tipodespacho"
                       label="Shipment Type"
-                      v-model="selected"
-                      :items="despachito"
-
+                      v-model="editedItem.tipodespacho"
+                      :items="shipmentOptions"
                     ></v-select>
                   </v-col>
                   <v-col
@@ -207,8 +208,8 @@ export default {
         dialog: false,
         dialogDelete: false,
         search:'',
-        tipo:['Despachado', 'Parcial'],
-        despachito:['Samex', 'Otro'],
+        statusOptions:['Despachado', 'Parcial'],
+        shipmentOptions:['Samex', 'Otro'],
               
         headers: [
           { text: 'Actions', value: 'actions', align: 'start', sortable: false },

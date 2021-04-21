@@ -62,6 +62,7 @@
                                 <td class='red lighten-3'>{{task.password}}</td>
                                 <td class='red lighten-3'>{{task.accessLevel}}</td>
                                 <td>
+                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <button @click="deleteTask(task._id)"
                                     class="btn btn-danger red darken-4">
                                         Delete
@@ -70,6 +71,7 @@
                                         class="btn btn-danger light-green darken-3">
                                         Edit
                                     </button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
