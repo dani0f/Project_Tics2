@@ -19,7 +19,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title>Ordenes de compra</v-toolbar-title>
+        <v-toolbar-title>Purchase Order</v-toolbar-title>
         <v-spacer></v-spacer>
               <v-text-field
                 v-model="search"
@@ -53,7 +53,17 @@
                   >
                     <v-text-field
                       v-model="editedItem.oc"
-                       label="OC"
+                       label="PO"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  >
+                    <v-text-field
+                      v-model="editedItem.position"
+                       label="Pos"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -208,13 +218,13 @@ export default {
         dialog: false,
         dialogDelete: false,
         search:'',
-        statusOptions:['Despachado', 'Parcial'],
+        statusOptions:['Despachado','Sin Avance', 'En Fabricación', 'Espera Transporte', 'Espera acta ' ],
         shipmentOptions:['Samex', 'Otro'],
               
         headers: [
           { text: 'Actions', value: 'actions', align: 'start', sortable: false },
           {
-            text: 'OC',
+            text: 'PO',
             value: 'oc',
           },
           { text: 'Position', value: 'position' },
@@ -230,7 +240,7 @@ export default {
           { text: 'Purchaser', filterable: false,value: 'comprador' },
           { text: 'Requested Amount', filterable: false,value: 'cantidadsolicitada' },
           { text: 'Delivered Amount', filterable: false,value: 'cantidadentregada' },
-          { text: 'Missing Amount', filterable: false,value: 'cantidadfaltante' },
+          { text: 'Pending Amount', filterable: false,value: 'cantidadfaltante' },
           { text: 'Alert', value: 'alert'},
           { text: 'Shipment Type', filterable: false,value: 'tipodespacho' },
           { text: 'Guide', filterable: false,value: 'guia' },
