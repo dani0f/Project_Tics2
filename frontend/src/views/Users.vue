@@ -4,45 +4,51 @@
       <div class="container">
           <div class="row pt-5">
                <div class="col-md-5">
-                 <div class="card">
+                 <v-card elevation="3">
                     <v-card-title><h3>Add user</h3></v-card-title>
-                     <div class="card-body">
+                     <v-card-text>
                          <form @submit.prevent="sendTask">
                               <div class="form-group">
-                                 <input type="text"
+                                 <v-text-field
                                  v-model="task.name"
-                                 placeholder="Insert a Name"
-                                 class="form-control">
+                                 label="Insert a Name"
+                                 :rules="rulesName"
+                                 hide-details="auto"
+                                 ></v-text-field>
                              </div>
                              <div class="form-group">
-                                <input type="text"
+                                <v-text-field
                                  v-model="task.username"
-                                 placeholder="Insert a Username"
-                                 class="form-control">
+                                 label="Insert a Username"
+                                 :rules="rulesUsername"
+                                 hide-details="auto">
+                                 </v-text-field>
                              </div>
                              <div class="form-group">
-                                <input type="text"
+                                <v-text-field
                                  v-model="task.password"
-                                 placeholder="Insert a Password"
-                                 class="form-control">
+                                 label="Insert a Password"
+                                 :rules="rulesPassword"
+                                 hide-details="auto"
+                                 ></v-text-field>
                              </div>
                              <div class="form-group">
-                                <input type="text"
+                                <v-text-field
                                  v-model="task.accessLevel"
-                                 placeholder="Insert a AccesLevel"
-                                 class="form-control">
+                                 label="Insert a AccesLevel">
+                                 </v-text-field>
                              </div>
+                            <v-card-actions>
                              <template v-if="edit === false">
-                                 <button class="btn btn-primary
-                                btn-block deep-purple mt-4">save</button>      
+                                 <v-btn class="text-white" color="deep-purple" title="add user">save</v-btn>      
                             </template>
                             <template v-else>
-                                 <button class="btn btn-primary
-                                btn-block teal darken-4">Update</button>      
+                                 <v-btn class="text-white" color="teal darken-4" title="edit user">Update</v-btn>      
                             </template>
+                            </v-card-actions> 
                          </form>
-                      </div>
-                 </div>
+                     </v-card-text>
+                 </v-card>
                 </div>
 
                 <div class="col-md-7">
@@ -97,6 +103,18 @@
     export default {
         data() {
             return{
+                rulesName:[
+                    value => !!value || 'Required.',
+                    value => (value && value.length >=3) || 'Min 3 characters'
+                ],
+                rulesUsername:[
+                    value => !!value || 'Required.',
+                    value => (value && value.length >=3) || 'Min 3 characters'
+                ],
+                rulesPassword:[
+                    value => !!value || 'Required.',
+                    value => (value && value.length >=3) || 'Min 3 characters'
+                ],
                 task: new Task(),
                 tasks: [],
                 edit: false,
