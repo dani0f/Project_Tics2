@@ -4,51 +4,45 @@
       <div class="container">
           <div class="row pt-5">
                <div class="col-md-5">
-                 <v-card elevation="3">
+                 <div class="card">
                     <v-card-title><h3>Add user</h3></v-card-title>
-                     <v-card-text>
-                         <v-form @submit.prevent="sendTask" id="check-form" ref="form">
+                     <div class="card-body">
+                         <form @submit.prevent="sendTask">
                               <div class="form-group">
-                                 <v-text-field
+                                 <input type="text"
                                  v-model="task.name"
-                                 label="Insert a Name"
-                                 :rules="rulesName"
-                                 hide-details="auto"
-                                 ></v-text-field>
+                                 placeholder="Insert a Name"
+                                 class="form-control">
                              </div>
                              <div class="form-group">
-                                <v-text-field
+                                <input type="text"
                                  v-model="task.username"
-                                 label="Insert a Username"
-                                 :rules="rulesUsername"
-                                 hide-details="auto">
-                                 </v-text-field>
+                                 placeholder="Insert a Username"
+                                 class="form-control">
                              </div>
                              <div class="form-group">
-                                <v-text-field
+                                <input type="text"
                                  v-model="task.password"
-                                 label="Insert a Password"
-                                 :rules="rulesPassword"
-                                 hide-details="auto"
-                                 ></v-text-field>
+                                 placeholder="Insert a Password"
+                                 class="form-control">
                              </div>
                              <div class="form-group">
-                                <v-text-field
+                                <input type="text"
                                  v-model="task.accessLevel"
-                                 label="Insert a AccesLevel">
-                                 </v-text-field>
+                                 placeholder="Insert a AccesLevel"
+                                 class="form-control">
                              </div>
-                            <v-card-actions>
                              <template v-if="edit === false">
-                                 <v-btn type="submit" form="check-form" class="text-white" color="deep-purple" title="add user">save</v-btn>      
+                                 <button class="btn btn-primary
+                                btn-block deep-purple mt-4">save</button>      
                             </template>
                             <template v-else>
-                                 <v-btn type="submit" form="check-form" class="text-white" color="teal darken-4" title="edit user">Update</v-btn>      
+                                 <button class="btn btn-primary
+                                btn-block teal darken-4">Update</button>      
                             </template>
-                            </v-card-actions> 
-                         </v-form>
-                     </v-card-text>
-                 </v-card>
+                         </form>
+                      </div>
+                 </div>
                 </div>
 
                 <div class="col-md-7">
@@ -68,7 +62,6 @@
                                 <td class='red lighten-3'>{{task.password}}</td>
                                 <td class='red lighten-3'>{{task.accessLevel}}</td>
                                 <td>
-                                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                                     <button @click="deleteTask(task._id)"
                                     class="btn btn-danger red darken-4">
                                         Delete
@@ -77,7 +70,6 @@
                                         class="btn btn-danger light-green darken-3">
                                         Edit
                                     </button>
-                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -103,18 +95,6 @@
     export default {
         data() {
             return{
-                rulesName:[
-                    value => !!value || 'Required.',
-                    value => (value && value.length >=3) || 'Min 3 characters'
-                ],
-                rulesUsername:[
-                    value => !!value || 'Required.',
-                    value => (value && value.length >=3) || 'Min 3 characters'
-                ],
-                rulesPassword:[
-                    value => !!value || 'Required.',
-                    value => (value && value.length >=3) || 'Min 3 characters'
-                ],
                 task: new Task(),
                 tasks: [],
                 edit: false,
@@ -139,7 +119,7 @@
                         .then(data => {
                             this.getTasks(data);
                         })
-                   
+
                } else {
                    fetch('http://localhost:3000/api/users/' + this.taskToEdit, {
                        method: 'PUT',
@@ -156,7 +136,6 @@
                         });
                }
                this.task = new Task();
-               this.$refs.form.reset()
             },
             getTasks() {
                 fetch('http://localhost:3000/api/users')
