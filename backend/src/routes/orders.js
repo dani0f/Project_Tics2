@@ -40,7 +40,6 @@ router.post('/import',async (req,res) =>{
             proveedor: element['Proveedor/Centro suministrador'],
             description: element['Texto breve'],
             deliverydate: deliverydate,
-            promisedate: deliverydate,
             comprador: comprador,//últimos 3 números
             cantidadsolicitada: element['Cantidad de pedido'],
             cantidadentregada:  cantidadentregada,
