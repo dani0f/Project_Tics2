@@ -7,7 +7,7 @@
                  <v-card elevation="3">
                     <v-card-title><h3>Add user</h3></v-card-title>
                      <v-card-text>
-                         <form @submit.prevent="sendTask">
+                         <v-form @submit.prevent="sendTask" id="check-form" ref="form">
                               <div class="form-group">
                                  <v-text-field
                                  v-model="task.name"
@@ -40,13 +40,13 @@
                              </div>
                             <v-card-actions>
                              <template v-if="edit === false">
-                                 <v-btn class="text-white" color="deep-purple" title="add user">save</v-btn>      
+                                 <v-btn type="submit" form="check-form" class="text-white" color="deep-purple" title="add user">save</v-btn>      
                             </template>
                             <template v-else>
-                                 <v-btn class="text-white" color="teal darken-4" title="edit user">Update</v-btn>      
+                                 <v-btn type="submit" form="check-form" class="text-white" color="teal darken-4" title="edit user">Update</v-btn>      
                             </template>
                             </v-card-actions> 
-                         </form>
+                         </v-form>
                      </v-card-text>
                  </v-card>
                 </div>
@@ -139,7 +139,7 @@
                         .then(data => {
                             this.getTasks(data);
                         })
-
+                   
                } else {
                    fetch('http://localhost:3000/api/users/' + this.taskToEdit, {
                        method: 'PUT',
@@ -156,6 +156,7 @@
                         });
                }
                this.task = new Task();
+               this.$refs.form.reset()
             },
             getTasks() {
                 fetch('http://localhost:3000/api/users')
