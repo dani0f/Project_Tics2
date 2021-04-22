@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <v-navigation-drawer permanent v-model="drawer" dark app mini-variant class="red">
+        <v-navigation-drawer permanent v-model="drawer" dark app mini-variant class="red darken-1">
             <v-list tile>
                 <v-list-item class="mb-8" router to="/import">
                     <v-list-item-action>
