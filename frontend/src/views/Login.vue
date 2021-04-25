@@ -1,9 +1,34 @@
 <template>
   <div>
-    username: <input type="text" v-model="username"> <br/>
-    password: <input type="password" v-model="password"> <br/>
-    <button @click="login">login</button>
-    {{ error }}
+    <v-contend>
+    <v-card width="500px"
+     class="mx-auto">
+      <v-card-title>
+        <h3>Login</h3>
+      </v-card-title>
+      <v-card-text>
+          <v-text-field
+            v-model="username"
+            :rules="rulesUsername"
+            counter="25"
+            label="username"
+          ></v-text-field>
+            <v-text-field
+            v-model="password"
+            :rules="rulesPassword"
+            counter="25"
+            label="password"
+            type="password"
+          ></v-text-field>
+      </v-card-text>
+    <v-card-actions>
+    <v-btn 
+      color="green lighten-3"
+      @click="login">login</v-btn>
+    </v-card-actions>
+    <p class="text-center text-danger">{{ error }}  </p>     
+    </v-card>
+    </v-contend>
   </div>
 </template>
 <script>
