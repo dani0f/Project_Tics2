@@ -118,7 +118,8 @@
                 task: new Task(),
                 tasks: [],
                 edit: false,
-                taskToEdit: ''
+                taskToEdit: '',
+                error: ''
             }
         },
         created() {
@@ -135,7 +136,12 @@
                         'Content-type':'application/json'
                         }
                     })
-                        .then(res => res.json())
+                        .then(res => {
+                            this.error='';
+                            console.log(res)
+                        }, err =>{
+                            this.error = err.response.data.error
+                        })
                         .then(data => {
                             this.getTasks(data);
                         })
