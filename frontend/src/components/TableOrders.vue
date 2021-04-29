@@ -28,7 +28,7 @@
                flat
                hide-details
                prepend-inner-icon="fas fa-search"
-               color='red darken-1'
+               color='red darken-2'
                label="Search"
                
               ></v-text-field>
