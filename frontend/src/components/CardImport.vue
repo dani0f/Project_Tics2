@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+    <template v-if="accessLevel == 1">USER
     <v-card class="mx-auto pb-2"> 
       <template v-if="loading ==1">    
       <v-progress-linear
@@ -43,12 +43,17 @@
     <template v-else-if="completeLoading">
     <v-card-subtitle class="text-left red p-2 text-white">Ready</v-card-subtitle>
     </template>
-
+    </template>
+    <template v-if="accessLevel != 1">  
+      <div></div>
+    </template>
   </div>
+  
 </template>
 
 <script>
 import XLSX from 'xlsx'
+import Cookies from "js-cookie";
 export default {
   props: {
     beforeUpload: Function, // eslint-disable-line
@@ -60,12 +65,50 @@ export default {
       completeLoading: false,
       excelData: {
         header: null,
-        results: null
+        results: null,
+        userId: null
       },
-      mensages: "hola"
+      mensages: "hola",
+      name: null,
+      username: null,
+      accessLevel: null
     }
   },
+  computed: {
+    userLogged() {
+    return this.getUserLogged();
+    },
+  },
+  async created() {
+    if (typeof this.userLogged === 'undefined') {
+      this.$router.push('/login');
+    }
+  },
+  async mounted(){
+    await fetch('http://localhost:3000/api/users/user', {
+                method: 'GET',
+                headers: {
+                    'Accept' : 'application/json',
+                    'Content-type':'application/json',
+                    token : this.getUserLogged()
+                    }
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.accessLevel = data.user.accessLevel
+      if(this.accessLevel != 1){
+        this.$router.push('/login');
+        console.log("fuerita de aqui")
+      }
+      this.name = data.user.name;
+      this.username = data.user.username
+      this.excelData.userId = data.user._id
+    });
+  },  
   methods: {
+    getUserLogged() {
+      return Cookies.get("userLogged");
+    },
     async saveInDB(){
       fetch('http://localhost:3000/api/orders/import', {
           method: 'POST',

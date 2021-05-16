@@ -1,6 +1,8 @@
 <template>
 
-    <div>
+    <div>    
+      <template v-if="accessLevel == 2">    
+          <h1>ADMIN</h1>
       <div class="container">
           <div class="row pt-5">
                <div class="col-md-5">
@@ -85,6 +87,10 @@
          </div>
      </div>
     </div>
+    </template> 
+    <template v-if="accessLevel != 2">  
+        <div></div>
+    </template>
     </div>
 
 </template>
@@ -99,7 +105,7 @@
             this.accessLevel = accessLevel;
         }
     }
-
+    import Cookies from "js-cookie";
     export default {
         data() {
             return{
@@ -119,13 +125,50 @@
                 tasks: [],
                 edit: false,
                 taskToEdit: '',
-                error: ''
+                error: '',
+                name: null,
+                username: null,
+                accessLevel: null
             }
         },
-        created() {
+        computed: {
+            userLogged() {
+            return this.getUserLogged();
+            },
+        },
+        async created() {
+            if (typeof this.userLogged === 'undefined') {
+                this.$router.push('/login');
+            }
             this.getTasks();
+        }
+        ,
+        async mounted(){
+            await fetch('http://localhost:3000/api/users/user', {
+                method: 'GET',
+                headers: {
+                    'Accept' : 'application/json',
+                    'Content-type':'application/json',
+                    token : this.getUserLogged()
+                    }
+            })
+            .then(res => res.json())
+            .then(data => {
+            this.accessLevel = data.user.accessLevel
+            if(this.accessLevel != 2){
+                this.$router.push('/login');
+                console.log("fuerita de aqui")
+            }
+            this.name = data.user.name;
+            this.username = data.user.username
+            
+            });
         },
         methods: {
+            getUserLogged() {
+                return Cookies.get("userLogged");
+            }
+            ,
             sendTask(){
                 if(this.edit === false) {
                     fetch('http://localhost:3000/api/users',{

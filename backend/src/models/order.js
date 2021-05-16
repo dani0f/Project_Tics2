@@ -20,8 +20,8 @@ const orderSchema = new Schema({
     cantidadfaltante: Number,
     tipodespacho: String,
     guia: Number,
-    comentario: String
-    
+    comentario: String,
+    userId: String 
 });
 
 module.exports = mongoose.model('order', orderSchema);

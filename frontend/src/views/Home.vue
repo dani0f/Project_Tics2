@@ -34,6 +34,9 @@ export default {
       userLogged() {
         return this.getUserLogged();
         },
+      Home() {
+        return this.$route.name === 'Home'
+  }
     }
     ,
     created() {
@@ -61,14 +64,8 @@ export default {
     }
     ,
   methods:{
-    setUserLogged(userLogged) {
-      Cookies.set("userLogged", userLogged);
-    },
     getUserLogged() {
       return Cookies.get("userLogged");
-    },
-    deleteUserLogged() {
-      Cookies.remove('userLogged');
     },
   }
 };

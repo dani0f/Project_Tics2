@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-contend>
+    <v-main>
     <v-card width="500px"
      class="mx-auto">
       <v-card-title>
@@ -9,13 +9,11 @@
       <v-card-text>
           <v-text-field
             v-model="username"
-            :rules="rulesUsername"
             counter="25"
             label="username"
           ></v-text-field>
             <v-text-field
             v-model="password"
-            :rules="rulesPassword"
             counter="25"
             label="password"
             type="password"
@@ -28,7 +26,7 @@
     </v-card-actions>
     <p class="text-center text-danger">{{ error }}  </p>     
     </v-card>
-    </v-contend>
+    </v-main>
   </div>
 </template>
 <script>
@@ -44,6 +42,16 @@ export default {
       error: '',
     }
   },
+  computed: {
+    userLogged() {
+      return this.getUserLogged();
+    },
+  },
+  async created() {
+    if (typeof this.userLogged != 'undefined') {
+      this.$router.push('/');
+    }
+  }, 
   methods: {
     setUserLogged(userLogged) {
       Cookies.set("userLogged", userLogged);
