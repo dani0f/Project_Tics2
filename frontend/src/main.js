@@ -13,6 +13,5 @@ new Vue({
   router,
   store,
   vuetify,
-  MultiFiltersPlugin,
   render: h => h(App)
 }).$mount('#app')

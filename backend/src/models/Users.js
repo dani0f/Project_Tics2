@@ -4,9 +4,15 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema({
     name: String,
-    username: String,
+    username: {
+        type: String,
+        unique: true
+    },
     password: String,
-    accessLevel: Number
+    accessLevel: {
+        type:Number,
+        default: 1
+    }
 });
 
 module.exports = mongoose.model('User', UserSchema);
