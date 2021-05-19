@@ -19,8 +19,10 @@ const orderSchema = new Schema({
     cantidadentregada: Number,
     cantidadfaltante: Number,
     tipodespacho: String,
+    fechadespacho: String,
     guia: Number,
     comentario: String,
+    cumplimiento: String,
     userId: String 
 });
 
