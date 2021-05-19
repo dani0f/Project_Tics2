@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navbar/>
+    <Navbar :key="$route.fullPath"/>
   <v-main>
     <router-view></router-view>
   </v-main>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar' 
 
 export default {
   name: 'App',
@@ -17,6 +17,5 @@ export default {
   components: {
     Navbar,
   },
-
 };
 </script>
