@@ -8,7 +8,6 @@
     </v-card-title>
 
     <v-data-table
-     fixed-header
     :headers="headers"
     :items="orders"
     :search="search"
@@ -20,7 +19,7 @@
       <v-toolbar
         flat
       >
-        <v-toolbar-title >Purchase Order</v-toolbar-title>
+        <v-toolbar-title>Purchase Order</v-toolbar-title>
         <v-spacer></v-spacer>
               <v-text-field
                 v-model="search"
@@ -43,8 +42,8 @@
               color='red darken-1'
               label="Sort by"
              ></v-select>
-            </template>             
-        <v-divider
+            </template>                          
+                    <v-divider
           class="mx-4"
           inset
           vertical
@@ -234,67 +233,33 @@ export default {
         dialog: false,
         dialogDelete: false,
         search:'',
-        buscar:'',
-        proveedor:'',
-        filter: {},
-        keys: [
-          'PO', 
-          'Solped',
-          'Project',
-          'Supplier',
-          'Forecast',
-          'Status',
-          'Purchaser',
-          'Alert',
-          'Shipment Type',
-        ],
-        statusOptions:[
-          'Despachado',
-          'Sin Avance',
-          'En Fabricación',
-          'Espera Transporte', 
-          'Espera acta liberación',
-          'Espera liberación inspección',
-          'POS detenida',
-          'RES Oficina técnica',
-          'Liberación Parcial',
-          'Despacho Parcial',
-          'Rechazado con OBS',
-          ],
-        shipmentOptions:[
-          'Samex',
-          'Deysu',
-          'Bodega IT',
-          'Artisa',
-          'PDQ',
-          'Proyecto',
-          ],
+        statusOptions:['Despachado','Sin Avance', 'En Fabricación', 'Espera Transporte', 'Espera acta ' ],
+        shipmentOptions:['Samex', 'Otro'],
               
         headers: [
           { text: 'Actions', value: 'actions', align: 'start', sortable: false },
           {
             text: 'PO',
-            width: "100px",
             value: 'oc',
           },
-          { text: 'Position', width: "100px", value: 'position' },
+          { text: 'Position', value: 'position' },
           { text: 'Solped', value: 'solped' },
-          { text: 'Project',width: "100px",value: 'proyecto' },
+          { text: 'Project',value: 'proyecto' },
           { text: 'Document Date', value: 'documentdate' },
-          { text: 'Supplier ', width: "200px" ,value: 'proveedor' },
-          { text: 'Description', width: "205px" ,value: 'description' },
-          { text: 'Due Date' ,value: 'deliverydate' },
+          { text: 'Supplier ', value: 'proveedor' },
+          { text: 'Description',value: 'description' },
+          { text: 'Due Date', value: 'deliverydate' },
           { text: 'Promise Date',value: 'promisedate' } ,
-          { text: 'Forecast', width: "150px",value: 'forecast' },
-          { text: 'Status',width: "150px", value: 'estado' },
-          { text: 'Purchaser', width: "110px", value: 'comprador' },
-          { text: 'Requested Amount', value: 'cantidadsolicitada' },
-          { text: 'Delivered Amount', value: 'cantidadentregada' },
-          { text: 'Pending Amount', value: 'cantidadfaltante' },
+          { text: 'Forecast', filterable: false,value: 'forecast' },
+          { text: 'Status', filterable: false,value: 'estado' },
+          { text: 'Purchaser', filterable: false,value: 'comprador' },
+          { text: 'Requested Amount', filterable: false,value: 'cantidadsolicitada' },
+          { text: 'Delivered Amount', filterable: false,value: 'cantidadentregada' },
+          { text: 'Pending Amount', filterable: false,value: 'cantidadfaltante' },
           { text: 'Alert', value: 'alert'},
-          { text: 'Shipment Type',width: "100px", value: 'tipodespacho' },
-          { text: 'Guide',width: "100px",value: 'guia' },
-          { text: 'Commentary',width: "200px", value: 'comentario' },
+          { text: 'Shipment Type', filterable: false,value: 'tipodespacho' },
+          { text: 'Guide', filterable: false,value: 'guia' },
+          { text: 'Commentary', value: 'comentario' },
         ],
         order: new Order(),
         orders: [],
