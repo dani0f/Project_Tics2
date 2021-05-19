@@ -134,6 +134,16 @@
                       md="4"
                     >
                       <v-text-field
+                        v-model="editedItem.fechadespacho"
+                        label="Fecha de Despacho"
+                      ></v-text-field>
+                    </v-col>                                        
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
                         v-model="editedItem.guia"
                         label="Guide"
                       ></v-text-field>
@@ -303,7 +313,9 @@ export default {
           { text: 'Pending Amount', value: 'cantidadfaltante' },
           { text: 'Alert', value: 'alert'},
           { text: 'Shipment Type',width: "100px", value: 'tipodespacho' },
+          { text: 'Fecha de Despacho',width: "150px", value: 'fechadespacho'},
           { text: 'Guide',width: "100px",value: 'guia' },
+          { text: 'Cumplimiento',width: "100px", value: 'cumplimiento'},
           { text: 'Commentary',width: "200px", value: 'comentario' },
         ],
         order: new Order(),
@@ -326,8 +338,10 @@ export default {
           cantidadentregada: 0,
           cantidadfaltante: 0,     
           tipodespacho: '',
+          fechadespacho:'',
           guia: 0,
           comentario:'',
+          cumplimiento: '',
           alert: ''
         
         },
@@ -348,8 +362,10 @@ export default {
           cantidadentregada: 0,
           cantidadfaltante: 0,     
           tipodespacho: '',
+          fechadespacho:'',
           guia: 0,
           comentario:'',
+          cumplimiento: '',
           alert:''
         },
       }
