@@ -135,7 +135,7 @@
                     >
                       <v-text-field
                         v-model="editedItem.fechadespacho"
-                        label="Fecha de Despacho"
+                        label="Shipment Date"
                       ></v-text-field>
                     </v-col>                                        
                     <v-col
@@ -313,9 +313,8 @@ export default {
           { text: 'Pending Amount', value: 'cantidadfaltante' },
           { text: 'Alert', value: 'alert'},
           { text: 'Shipment Type',width: "100px", value: 'tipodespacho' },
-          { text: 'Fecha de Despacho',width: "150px", value: 'fechadespacho'},
+          { text: 'Shipment Date',width: "150px", value: 'fechadespacho'},
           { text: 'Guide',width: "100px",value: 'guia' },
-          { text: 'Cumplimiento',width: "100px", value: 'cumplimiento'},
           { text: 'Commentary',width: "200px", value: 'comentario' },
         ],
         order: new Order(),
