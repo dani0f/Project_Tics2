@@ -71,7 +71,8 @@ router.post('/',async (req,res) =>{
     const newUser = new UserSchema({
     username: req.body.username,
     name: req.body.name,
-    password: bcrypt.hashSync(req.body.password, 10)
+    password: bcrypt.hashSync(req.body.password, 10),
+    accessLevel: req.body.accessLevel    
     })
     newUser.save(err => {
     if (err) {
