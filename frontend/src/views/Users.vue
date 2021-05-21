@@ -59,7 +59,6 @@
                             <tr>
                                 <th class='red'> name </th>
                                 <th class='red'> username </th>
-                                <th class='red'> password </th>
                                 <th class='red'> accessLevel </th>
                             </tr>
                         </thead>
@@ -67,7 +66,6 @@
                             <tr v-for="task of tasks" v-bind:key="task">
                                 <td class='red lighten-3'>{{task.name}}</td>
                                 <td class='red lighten-3'>{{task.username}}</td>
-                                <td class='red lighten-3'>{{task.password}}</td>
                                 <td class='red lighten-3'>{{task.accessLevel}}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic mixed styles example">
