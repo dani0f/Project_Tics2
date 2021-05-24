@@ -1,12 +1,12 @@
 <template>
-
     <div>    
       <template v-if="accessLevel == 2">    
-          <h1>ADMIN</h1>
       <div class="container">
           <div class="row pt-5">
-               <div class="col-md-5">
-                 <v-card elevation="3">
+               <div class="col-md-4">
+                 <v-card elevation="3"
+                 max-width="480"
+                 >
                     <v-card-title><h3>Add user</h3></v-card-title>
                      <v-card-text>
                          <v-form @submit.prevent="sendTask" id="check-form" ref="form">

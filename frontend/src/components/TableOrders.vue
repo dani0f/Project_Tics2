@@ -1,7 +1,7 @@
 <!--  Plantilla de ejemplo de comunicación con la BD-->
 <template>
 <div>
-  <template v-if="accessLevel == 1">USER
+  <template v-if="accessLevel == 1">
       <v-card-title>
         
         <v-spacer></v-spacer>

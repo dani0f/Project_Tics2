@@ -2,11 +2,14 @@
   <div>
     <v-main>
     <v-card width="500px"
-     class="mx-auto">
+     class="mx-auto m-4 p-3" 
+     >
       <v-card-title>
-        <h3>Login</h3>
+        <h3>Sigdo Kopper</h3>
       </v-card-title>
+      <v-divider></v-divider>
       <v-card-text>
+        Sign in with your username and password
           <v-text-field
             v-model="username"
             counter="25"
@@ -21,8 +24,12 @@
       </v-card-text>
     <v-card-actions>
     <v-btn 
-      color="green lighten-3"
-      @click="login">login</v-btn>
+      class="mx-auto"
+      color="green accent-3 "
+      width="140px"
+      @click="login">
+      <v-icon left>lock</v-icon>
+      Submit</v-btn>
     </v-card-actions>
     <p class="text-center text-danger">{{ error }}  </p>     
     </v-card>

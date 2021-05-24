@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="accessLevel == 1">USER
+    <template v-if="accessLevel == 1">
     <v-card class="mx-auto pb-2"> 
       <template v-if="loading ==1">    
       <v-progress-linear

@@ -7,11 +7,11 @@ const orderSchema = new Schema({
     position: Number,
     solped: Number,
     proyecto: String,
-    documentdate: Date,
+    documentdate: Date,//fecha de la orden
     proveedor: String,
     description: String,
     deliverydate: Date,
-    promisedate: Date,
+    promisedate: Date,//fecha en la que se comprometen
     forecast: String,
     estado: String,
     comprador: String,
@@ -19,7 +19,7 @@ const orderSchema = new Schema({
     cantidadentregada: Number,
     cantidadfaltante: Number,
     tipodespacho: String,
-    fechadespacho: String,
+    fechadespacho: String,//fecha que debieron entregar
     guia: Number,
     comentario: String,
     cumplimiento: String,
