@@ -142,7 +142,7 @@
         }
         ,
         async mounted(){
-            await fetch('http://localhost:3000/api/users/user', {
+            await fetch('http://18.204.5.128:3000/api/users/user', {
                 method: 'GET',
                 headers: {
                     'Accept' : 'application/json',
@@ -169,7 +169,7 @@
             ,
             sendTask(){
                 if(this.edit === false) {
-                    fetch('http://localhost:3000/api/users',{
+                    fetch('http://18.204.5.128:3000/api/users',{
                         method: 'POST',
                         body: JSON.stringify(this.task),
                         headers: {
@@ -188,7 +188,7 @@
                         })
                    
                } else {
-                   fetch('http://localhost:3000/api/users/' + this.taskToEdit, {
+                   fetch('http://18.204.5.128:3000/api/users/' + this.taskToEdit, {
                        method: 'PUT',
                        body: JSON.stringify(this.task),
                        headers: {
@@ -206,7 +206,7 @@
                this.$refs.form.reset()
             },
             getTasks() {
-                fetch('http://localhost:3000/api/users')
+                fetch('http://18.204.5.128:3000/api/users')
                     .then(res => res.json())
                     .then(data => {
                         this.tasks =  data;
@@ -216,7 +216,7 @@
 
             deleteTask(id){
                 console.log(id)
-                fetch('http://localhost:3000/api/users/' + id, {
+                fetch('http://18.204.5.128:3000/api/users/' + id, {
                 method: 'DELETE',
                 headers: {
                     'Accept' : 'application/json',
@@ -231,7 +231,7 @@
 
             editTask(id) {
                 console.log(id)
-                fetch('http://localhost:3000/api/users/' + id)
+                fetch('http://18.204.5.128:3000/api/users/' + id)
                     .then(res => res.json())
                     .then(data => {
                         this.task = new Task(data.name, data.username, data.password, data.accessLevel);

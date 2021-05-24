@@ -85,7 +85,7 @@ export default {
     }
   },
   async mounted(){
-    await fetch('http://localhost:3000/api/users/user', {
+    await fetch('http://18.204.5.128:3000/api/users/user', {
                 method: 'GET',
                 headers: {
                     'Accept' : 'application/json',
@@ -110,7 +110,7 @@ export default {
       return Cookies.get("userLogged");
     },
     async saveInDB(){
-      fetch('http://localhost:3000/api/orders/import', {
+      fetch('http://18.204.5.128:3000/api/orders/import', {
           method: 'POST',
           body: JSON.stringify(this.excelData),
           headers:{
@@ -118,7 +118,7 @@ export default {
             'Content-type':'application/json'
           }
         }).then(res => res.json())
-        await this.axios.get('http://localhost:3000/api/orders');
+        await this.axios.get('http://18.204.5.128:3000/api/orders');
         this.loading = false
         this.completeLoading = true
     },
