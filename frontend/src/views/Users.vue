@@ -37,8 +37,10 @@
                              <div class="form-group">
                                 <v-text-field
                                  v-model="task.accessLevel"
-                                 label="Insert a AccesLevel">
-                                 </v-text-field>
+                                 label="Insert a AccesLevel"
+                                 :rules="rulesAccesslevel"
+                                 hide-details="auto"
+                                 ></v-text-field>
                              </div>
                             <v-card-actions>
                              <template v-if="edit === false">
@@ -108,16 +110,20 @@
         data() {
             return{
                 rulesName:[
-                    value => !!value || 'Required.',
-                    value => (value && value.length >=3) || 'Min 3 characters'
+                    value => !!value || 'Please enter a name.',
+                    value => (value && value.length >=3 ) || 'Name need at least 3 characters.'
                 ],
                 rulesUsername:[
-                    value => !!value || 'Required.',
-                    value => (value && value.length >=3) || 'Min 3 characters'
+                    value => !!value || 'Please enter a Username.',
+                    value => (value && value.length >=3) || 'Username need at least 3 characters.'
                 ],
                 rulesPassword:[
-                    value => !!value || 'Required.',
-                    value => (value && value.length >=3) || 'Min 3 characters'
+                    value => !!value || 'Please enter a Password',
+                    value => (value && value.length >=7) || 'Password need at least 7 characters.'
+                ],
+                rulesAccesslevel:[
+                    value => !!value || 'Please choose acces level 1 or 2 .',
+                    value => (value==1 || value==2) || 'Please Choose 1 or 2'
                 ],
                 task: new Task(),
                 tasks: [],
