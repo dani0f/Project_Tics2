@@ -13,14 +13,17 @@
           <v-text-field
             v-model="username"
             counter="25"
-            label="username"
+            label="Username"
+            :rules="rulesUsername"  
           ></v-text-field>
             <v-text-field
             v-model="password"
             counter="25"
-            label="password"
+            label="Password"
             type="password"
-          ></v-text-field>
+            :rules="rulesPassword"
+          >
+          </v-text-field>
       </v-card-text>
     <v-card-actions>
     <v-btn 
@@ -43,11 +46,21 @@ import Cookies from "js-cookie";
 export default {
   name: 'Login',
   data() {
-    return {
+    return { 
       username: '',
       password: '',
       error: '',
+      rulesUsername:[
+          value => !!value || 'Please, enter a Username.',
+          value => (value && value.length <26 ) || 'The username need less than 25 characters.',
+          value => (value && value.length >=3) || 'The username needs at least 3 characters.'
+      ],
+      rulesPassword:[
+          value => !!value || 'Please, enter a Password.',
+          value => (value && value.length >=7) || 'The password needs at least 7 characters.'
+      ],
     }
+    
   },
   computed: {
     userLogged() {
@@ -69,7 +82,7 @@ export default {
     login() {
       let user = {
         username: this.username,
-        password: this.password
+        password: this.password,
       }
       this.axios.post('http://localhost:3000/api/users/login', user)
         .then(res => {
@@ -83,6 +96,7 @@ export default {
         }, err => {
           console.log(err.response);
           this.error = err.response.data.error
+
         })
     }
   }
