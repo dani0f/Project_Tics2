@@ -37,14 +37,14 @@ router.post('/login', (req, res, next) => {
     if (!user) {
       return res.status(401).json({
         title: 'user not found',
-        error: 'invalid credentials'
+        error: 'Invalid username or password'
       })
     }
     //incorrect password
     if (!bcrypt.compareSync(req.body.password, user.password)) {
       return res.status(401).json({
         tite: 'login failed',
-        error: 'invalid credentials'
+        error: 'Invalid username or password'
       })
     }
     //IF ALL IS GOOD create a token and send to frontend
