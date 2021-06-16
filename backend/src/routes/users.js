@@ -87,9 +87,12 @@ router.post('/',async (req,res) =>{
   })
 });
 router.put('/:id', async (req,res) =>{
-    await UserSchema.findByIdAndUpdate(req.params.id, req.body);
+
     await UserSchema.findByIdAndUpdate(req.params.id, {
-      password: bcrypt.hashSync(req.body.password, 10)});
+      username: req.body.username,
+      name: req.body.name,
+      password: bcrypt.hashSync(req.body.password, 10),
+      accessLevel: req.body.accessLevel });
 
     res.json({
         status: 'user Update'

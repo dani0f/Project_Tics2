@@ -1,3 +1,4 @@
+messaje1: "Insert a NEW Password"
 <template>
     <div>    
       <template v-if="accessLevel == 2">    
@@ -28,12 +29,13 @@
                              </div>
                              <div class="form-group">
                                 <v-text-field
-                                 v-model="task.password"
-                                 label="Insert a Password"
-                                 :rules="rulesPassword"
-                                 hide-details="auto"
-                                 ></v-text-field>
+                                v-model="task.password"
+                                label="Insert a Password"
+                                :rules="rulesPassword"
+                                hide-details="auto">
+                                </v-text-field>
                              </div>
+                             <span>SI NO QUIERE CAMBIAR SU CONTRASEÑA NO ESCRIBA NADA</span>
                              <div class="form-group">
                                 <v-text-field
                                  v-model="task.accessLevel"
@@ -41,12 +43,12 @@
                                  </v-text-field>
                              </div>
                             <v-card-actions>
-                             <template v-if="edit === false">
-                                 <v-btn type="submit" form="check-form" class="text-white" color="deep-purple" title="add user">save</v-btn>      
-                            </template>
-                            <template v-else>
-                                 <v-btn type="submit" form="check-form" class="text-white" color="teal darken-4" title="edit user">Update</v-btn>      
-                            </template>
+                                <template v-if="edit === false">
+                                    <v-btn type="submit" form="check-form" class="text-white" color="deep-purple" title="add user">save</v-btn>      
+                                </template>
+                                <template v-else>
+                                    <v-btn type="submit" form="check-form" class="text-white" color="teal darken-4" title="edit user">Update</v-btn>      
+                                </template>
                             </v-card-actions> 
                          </v-form>
                      </v-card-text>
@@ -234,7 +236,7 @@
                 fetch('http://localhost:3000/api/users/' + id)
                     .then(res => res.json())
                     .then(data => {
-                        this.task = new Task(data.name, data.username, data.password, data.accessLevel);
+                        this.task = new Task(data.name, data.username, " ", data.accessLevel);
                         this.taskToEdit = data._id;
                         this.edit = true;
                     });
