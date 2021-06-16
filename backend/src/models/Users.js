@@ -11,13 +11,15 @@ const UserSchema = new Schema({
     username: {
         type: String,
         required: [true, 'Category required'],  
-        minlength:[3,'Minimun code length 3 characters'],              
+        minlength:[3,'Minimun code length 3 characters'],
+        maxlength:[25, 'Maximun code length 25 characters'],              
         unique: true
     },
     password:{
         type: String,
         required: [true, 'Category required'],
-        minlength:[7,'Minimun code length 7 characters']     
+        minlength:[7,'Minimun code length 7 characters'],
+        maxlength:[25, 'Maximun code length 25 characters'], 
         
     },
     accessLevel: {
