@@ -18,7 +18,6 @@
           ></v-text-field>
             <v-text-field
             v-model="password"
-            counter="25"
             label="Password"
             type="password"
             :rules="rulesPassword"
