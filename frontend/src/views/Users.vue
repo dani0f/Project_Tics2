@@ -35,7 +35,6 @@ messaje1: "Insert a NEW Password"
                                 hide-details="auto">
                                 </v-text-field>
                              </div>
-                             <span>SI NO QUIERE CAMBIAR SU CONTRASEÑA NO ESCRIBA NADA</span>
                              <div class="form-group">
                                 <v-text-field
                                  v-model="task.accessLevel"
@@ -204,17 +203,21 @@ messaje1: "Insert a NEW Password"
                         'Content-type':'application/json'
                        }
                    })
-                        .then(res => res.json())
+                        .then(res => {
+                            console.log(res)
+                            res.json()})
                         .then(data => {
                             this.getTasks(data);
                             this.edit = false;
+                            console.log('aquiiii');
                         });
                }
+               this.getTasks();
                this.task = new Task();
                this.$refs.form.reset()
             },
-            getTasks() {
-                fetch('http://localhost:3000/api/users')
+            async getTasks() {
+                await fetch('http://localhost:3000/api/users')
                     .then(res => res.json())
                     .then(data => {
                         this.tasks =  data;
@@ -242,11 +245,11 @@ messaje1: "Insert a NEW Password"
                 fetch('http://localhost:3000/api/users/' + id)
                     .then(res => res.json())
                     .then(data => {
-                        this.task = new Task(data.name, data.username, " ", data.accessLevel);
+                        this.task.password = "";
+                        this.task = new Task(data.name, data.username, "", data.accessLevel);
                         this.taskToEdit = data._id;
                         this.edit = true;
                     });
-
             },
         }
 

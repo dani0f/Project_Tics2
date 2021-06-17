@@ -87,17 +87,23 @@ router.post('/',async (req,res) =>{
   })
 });
 router.put('/:id', async (req,res) =>{
-
+  const dani = req.body.password;
+  if (dani == ""){
+    await UserSchema.findByIdAndUpdate(req.params.id, {
+      username: req.body.username,
+      name: req.body.name,
+      accessLevel: req.body.accessLevel });
+  }
+  else{
     await UserSchema.findByIdAndUpdate(req.params.id, {
       username: req.body.username,
       name: req.body.name,
       password: bcrypt.hashSync(req.body.password, 10),
-      accessLevel: req.body.accessLevel });
-
-    res.json({
-        status: 'user Update'
-    })
-
+      accessLevel: req.body.accessLevel }); 
+  }
+  return res.status(200).json({
+    title: 'user Update'
+  })
 });
 router.delete('/:id',async (req, res) =>{
     await UserSchema.findByIdAndRemove(req.params.id);
