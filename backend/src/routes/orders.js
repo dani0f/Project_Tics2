@@ -66,8 +66,6 @@ router.get('/suppliers', async (req,res) => {
     }
     res.json(data);
 });
-//"proveedor"
-//"proyecto"
 
 
 router.post('/kpi', async (req,res) => {
@@ -85,9 +83,6 @@ router.post('/kpi', async (req,res) => {
     res.json(orders)
 });
 
-//db.coleccion.find({documentdate : {"$gte" : start, "$lte" : end}})
-//documentdate o deliverydate
-//due date es deliverydate
 
 router.get('/', async (req,res) => {
     let user = req.headers.user; //token

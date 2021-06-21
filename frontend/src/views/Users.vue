@@ -1,4 +1,3 @@
-messaje1: "Insert a NEW Password"
 <template>
     <div>    
       <template v-if="accessLevel == 2">    
@@ -10,7 +9,7 @@ messaje1: "Insert a NEW Password"
                  >
                     <v-card-title><h3>Add user</h3></v-card-title>
                      <v-card-text>
-                         <v-form @submit.prevent="sendTask" id="check-form" ref="form">
+                         <v-form @submit.prevent="sendTask" id="check-form" ref="form" v-model="valid" lazy-validation>
                               <div class="form-group">
                                  <v-text-field
                                  v-model="task.name"
@@ -30,10 +29,17 @@ messaje1: "Insert a NEW Password"
                              <div class="form-group">
                                 <v-text-field
                                 v-model="task.password"
-                                label="Insert a Password"
                                 :rules="rulesPassword"
+                                label="Insert a Password"
+                                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                :type="show1 ? 'text' : 'password'"
+                                name="input-10-1"
+                                hint="At least 7 characters"
+                                counter
+                                @click:append="show1 = !show1"
                                 hide-details="auto">
                                 </v-text-field>
+                                <subtitle-1 v-if="edit" class="purple--text">Fill for change the password</subtitle-1>
                              </div>
                              <div class="form-group">
                                 <v-text-field
@@ -45,10 +51,10 @@ messaje1: "Insert a NEW Password"
                              </div>
                             <v-card-actions>
                                 <template v-if="edit === false">
-                                    <v-btn type="submit" form="check-form" class="text-white" color="deep-purple" title="add user">save</v-btn>      
+                                    <v-btn  :disabled="!valid" type="submit" form="check-form" class="text-white" color="deep-purple" title="add user">save</v-btn>      
                                 </template>
                                 <template v-else>
-                                    <v-btn type="submit" form="check-form" class="text-white" color="teal darken-4" title="edit user">Update</v-btn>      
+                                    <v-btn  :disabled="!valid" type="submit" form="check-form" class="text-white" color="teal darken-4" title="edit user">Update</v-btn>      
                                 </template>
                             </v-card-actions> 
                          </v-form>
@@ -115,21 +121,22 @@ messaje1: "Insert a NEW Password"
                     value => (value && value.length >=3 ) || 'Name need at least 3 characters.'
                 ],
                 rulesUsername:[
-                    value => !!value || 'Please enter a Username.',
+                    value => !!value || 'Please enter a username.',
                     value => (value && value.length >=3) || 'Username need at least 3 characters.'
-                ],
-                rulesPassword:[
-                    value => !!value || 'Please enter a Password',
-                    value => (value && value.length >=7) || 'Password need at least 7 characters.'
                 ],
                 rulesAccesslevel:[
                     value => !!value || 'Please choose acces level 1 or 2 .',
                     value => (value==1 || value==2) || 'Please Choose 1 or 2'
                 ],
+                rulesPassword:[
+                    value => (value=="" || value.length >= 7) || 'Password need at least 7 characters.'
+                ],                
                 task: new Task(),
                 tasks: [],
+                show1: false,
                 edit: false,
                 taskToEdit: '',
+                valid : true,
                 error: '',
                 name: null,
                 username: null,
@@ -175,53 +182,55 @@ messaje1: "Insert a NEW Password"
             }
             ,
             sendTask(){
-                if(this.edit === false) {
-                    fetch('http://localhost:3000/api/users',{
-                        method: 'POST',
-                        body: JSON.stringify(this.task),
-                        headers: {
-                        'Accept' : 'application/json',
-                        'Content-type':'application/json'
-                        }
-                    })
-                        .then(res => {
-                            this.error='';
-                            console.log(res)
-                        }, err =>{
-                            this.error = err.response.data.error
+                if(this.$refs.form.validate()){
+                    if(this.edit === false) {
+                        fetch('http://localhost:3000/api/users',{
+                            method: 'POST',
+                            body: JSON.stringify(this.task),
+                            headers: {
+                            'Accept' : 'application/json',
+                            'Content-type':'application/json'
+                            }
                         })
-                        .then(data => {
-                            this.getTasks(data);
+                            .then(res => {
+                                this.error='';
+                                console.log(res)
+                            }, err =>{
+                                this.error = err.response.data.error
+                            })
+                            .then(data => {
+                                console.log(data)
+                                this.getTasks();
+                            })
+                    
+                        } else {
+                        fetch('http://localhost:3000/api/users/' + this.taskToEdit, {
+                            method: 'PUT',
+                            body: JSON.stringify(this.task),
+                            headers: {
+                                'Accept' : 'application/json',
+                                'Content-type':'application/json'
+                            }
                         })
-                   
-               } else {
-                   fetch('http://localhost:3000/api/users/' + this.taskToEdit, {
-                       method: 'PUT',
-                       body: JSON.stringify(this.task),
-                       headers: {
-                        'Accept' : 'application/json',
-                        'Content-type':'application/json'
-                       }
-                   })
-                        .then(res => {
-                            console.log(res)
-                            res.json()})
-                        .then(data => {
-                            this.getTasks(data);
-                            this.edit = false;
-                            console.log('aquiiii');
-                        });
-               }
-               this.getTasks();
-               this.task = new Task();
-               this.$refs.form.reset()
+                            .then(res => {
+                                console.log(res)
+                                res.json()})
+                            .then(data => {
+                                console.log(data)
+                                this.getTasks();
+                                this.edit = false;
+                            });
+                }
+                this.task = new Task();
+                this.$refs.form.reset()
+                this.getTasks()
+                }
             },
             async getTasks() {
                 await fetch('http://localhost:3000/api/users')
                     .then(res => res.json())
                     .then(data => {
                         this.tasks =  data;
-                        console.log(this.tasks)
                     });
             },
 

@@ -6,7 +6,7 @@ const app = express();
 
 //settings
 app.set('port', process.env.PORT || 3000);
-mongoose.connect('mongodb+srv://demouserDB:demouserDB123@cluster0.olnck.mongodb.net/demoDB?retryWrites=true&w=majoritye')
+mongoose.connect('mongodb+srv://demouserDB:demouserDB123@cluster0.olnck.mongodb.net/demoDB?retryWrites=true&w=majoritye', { useNewUrlParser: true })
     .then(db => console.log('DB is connected'))
     .catch(err => console.error(err));
 app.use(bp.json({limit: '50mb'}));

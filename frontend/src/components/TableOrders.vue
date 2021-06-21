@@ -88,10 +88,46 @@
                       sm="6"
                       md="4"
                     >
-                      <v-text-field
-                        v-model="editedItem.promisedate"
-                        label="Promise Date"
-                      ></v-text-field>
+                    <v-menu
+                      ref="menu1"
+                      v-model="menu1"
+                      :close-on-content-click="false"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                      :return-value.sync="editedItem.promisedate"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="editedItem.promisedate"
+                          label="Promise Date"
+                          v-bind="attrs"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                                v-model="editedItem.promisedate"
+                                no-title
+                                scrollable
+                              >
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                  text
+                                  color="primary"
+                                  @click="menu1 = false"
+                                >
+                                  Cancel
+                                </v-btn>
+                                <v-btn
+                                  text
+                                  color="primary"
+                                  @click="$refs.menu1.save(editedItem.promisedate)"
+                                >
+                                  OK
+                                </v-btn>
+                        </v-date-picker>
+                    </v-menu>
                     </v-col>
                     <v-col
                       cols="12"
@@ -133,10 +169,46 @@
                       sm="6"
                       md="4"
                     >
-                      <v-text-field
-                        v-model="editedItem.fechadespacho"
-                        label="Shipment Date"
-                      ></v-text-field>
+                    <v-menu
+                      ref="menu2"
+                      v-model="menu2"
+                      :close-on-content-click="false"
+                      :return-value.sync="editedItem.fechadespacho"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="auto"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="editedItem.fechadespacho"
+                          label="Shipment Date"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                                v-model="editedItem.fechadespacho"
+                                no-title
+                                scrollable
+                              >
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                  text
+                                  color="primary"
+                                  @click="menu2 = false"
+                                >
+                                  Cancel
+                                </v-btn>
+                                <v-btn
+                                  text
+                                  color="primary"
+                                  @click="$refs.menu2.save(editedItem.fechadespacho)"
+                                >
+                                  OK
+                                </v-btn>
+                        </v-date-picker>
+                    </v-menu>
                     </v-col>                                        
                     <v-col
                       cols="12"
@@ -247,6 +319,8 @@ class Order {
 export default {
     data(){
       return{
+        menu1: false,
+        menu2: false,
         name: null,
         username: null,
         accessLevel: null,

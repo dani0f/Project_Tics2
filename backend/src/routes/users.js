@@ -87,26 +87,39 @@ router.post('/',async (req,res) =>{
   })
 });
 router.put('/:id', async (req,res) =>{
-  const dani = req.body.password;
-  if (dani == ""){
-    await UserSchema.findByIdAndUpdate(req.params.id, {
-      username: req.body.username,
-      name: req.body.name,
-      accessLevel: req.body.accessLevel });
+  const pss = req.body.password;
+  if (pss == ""){
+    try {
+      await UserSchema.findByIdAndUpdate(req.params.id, {
+        username: req.body.username,
+        name: req.body.name,
+        accessLevel: req.body.accessLevel });           
+    } catch (error) {
+      console.log(error)
+    }
+ 
   }
   else{
-    await UserSchema.findByIdAndUpdate(req.params.id, {
-      username: req.body.username,
-      name: req.body.name,
-      password: bcrypt.hashSync(req.body.password, 10),
-      accessLevel: req.body.accessLevel }); 
+    try {
+      await UserSchema.findByIdAndUpdate(req.params.id, {
+        username: req.body.username,
+        name: req.body.name,
+        password: bcrypt.hashSync(req.body.password, 10),
+        accessLevel: req.body.accessLevel });       
+    } catch (error) {
+      console.log(error)
+    }
   }
-  return res.status(200).json({
-    title: 'user Update'
+  res.json({
+    status: 'user Update'
   })
 });
 router.delete('/:id',async (req, res) =>{
+  try {
     await UserSchema.findByIdAndRemove(req.params.id);
+  } catch (error) {
+    console.log(error)
+  }
     res.json({
         status: 'user Removed'
     })
