@@ -102,7 +102,7 @@ export default {
           username: this.username,
           password: this.password,
         }
-        this.axios.post('http://localhost:3000/api/users/login', user)
+        this.axios.post('http://23.102.156.40:3000/api/users/login', user)
           .then(res => {
             //if successfull
             if (res.status === 200) {

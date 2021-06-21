@@ -47,7 +47,7 @@ export default {
       }
     },
     async mounted(){
-      await fetch('http://localhost:3000/api/users/user', {
+      await fetch('http://23.102.156.40:3000/api/users/user', {
         method: 'GET',
          headers: {
             'Accept' : 'application/json',

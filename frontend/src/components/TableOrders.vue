@@ -468,7 +468,7 @@ export default {
       }
     },
     async mounted(){
-      await fetch('http://localhost:3000/api/users/user', {
+      await fetch('http://23.102.156.40:3000/api/users/user', {
                   method: 'GET',
                   headers: {
                       'Accept' : 'application/json',
@@ -501,7 +501,7 @@ export default {
         return(dias_restantes-1)
       },
       async getOrders(){
-        const res = await this.axios.get('http://localhost:3000/api/orders/', {
+        const res = await this.axios.get('http://23.102.156.40:3000/api/orders/', {
           headers: {
                       'Accept' : 'application/json',
                       'Content-type':'application/json',
@@ -511,7 +511,7 @@ export default {
         this.orders = res.data
       },
       addOrder(){
-        fetch('http://localhost:3000/api/orders', {
+        fetch('http://23.102.156.40:3000/api/orders', {
           method: 'POST',
           body: JSON.stringify(this.order),
           headers:{
@@ -525,7 +525,7 @@ export default {
         this.order = new Order();
       },
       deleteOrder(id){
-        fetch('http://localhost:3000/api/orders/' + id, {
+        fetch('http://23.102.156.40:3000/api/orders/' + id, {
           method: 'DELETE',
           headers: {
             'Accept':'application/json',
@@ -538,7 +538,7 @@ export default {
         })
       },
       editOrder(){
-        fetch('http://localhost:3000/api/orders/' + this.editedItem._id,{
+        fetch('http://23.102.156.40:3000/api/orders/' + this.editedItem._id,{
           method: 'PUT',
           body: JSON.stringify(this.editedItem),
           headers: {

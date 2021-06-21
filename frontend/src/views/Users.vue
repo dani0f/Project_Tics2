@@ -156,7 +156,7 @@
         }
         ,
         async mounted(){
-            await fetch('http://localhost:3000/api/users/user', {
+            await fetch('http://23.102.156.40:3000/api/users/user', {
                 method: 'GET',
                 headers: {
                     'Accept' : 'application/json',
@@ -184,7 +184,7 @@
             sendTask(){
                 if(this.$refs.form.validate()){
                     if(this.edit === false) {
-                        fetch('http://localhost:3000/api/users',{
+                        fetch('http://23.102.156.40:3000/api/users',{
                             method: 'POST',
                             body: JSON.stringify(this.task),
                             headers: {
@@ -204,7 +204,7 @@
                             })
                     
                         } else {
-                        fetch('http://localhost:3000/api/users/' + this.taskToEdit, {
+                        fetch('http://23.102.156.40:3000/api/users/' + this.taskToEdit, {
                             method: 'PUT',
                             body: JSON.stringify(this.task),
                             headers: {
@@ -227,7 +227,7 @@
                 }
             },
             async getTasks() {
-                await fetch('http://localhost:3000/api/users')
+                await fetch('http://23.102.156.40:3000/api/users')
                     .then(res => res.json())
                     .then(data => {
                         this.tasks =  data;
@@ -236,7 +236,7 @@
 
             deleteTask(id){
                 console.log(id)
-                fetch('http://localhost:3000/api/users/' + id, {
+                fetch('http://23.102.156.40:3000/api/users/' + id, {
                 method: 'DELETE',
                 headers: {
                     'Accept' : 'application/json',
@@ -251,7 +251,7 @@
 
             editTask(id) {
                 console.log(id)
-                fetch('http://localhost:3000/api/users/' + id)
+                fetch('http://23.102.156.40:3000/api/users/' + id)
                     .then(res => res.json())
                     .then(data => {
                         this.task.password = "";

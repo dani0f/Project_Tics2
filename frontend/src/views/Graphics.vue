@@ -260,7 +260,7 @@
     }
   },
     async mounted(){
-    await fetch('http://localhost:3000/api/users/user', {
+    await fetch('http://23.102.156.40:3000/api/users/user', {
                 method: 'GET',
                 headers: {
                     'Accept' : 'application/json',
@@ -292,7 +292,7 @@
         return(dias_restantes-1)
     },
     async getSupliers()  {
-      const res = await this.axios.get('http://localhost:3000/api/orders/suppliers', {
+      const res = await this.axios.get('http://23.102.156.40:3000/api/orders/suppliers', {
         headers: {
                   'Accept' : 'application/json',
                   'Content-type':'application/json',
@@ -310,7 +310,7 @@
           date: this.date,
           project: this.project
         }
-        var res = await fetch('http://localhost:3000/api/orders/kpi', {
+        var res = await fetch('http://23.102.156.40:3000/api/orders/kpi', {
             method: 'POST',
             body: JSON.stringify(query),
             headers:{
